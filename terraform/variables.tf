@@ -5,12 +5,8 @@ variable "private_key_path" {} */
 
 #Change me according to your tenant
 variable "region" { default = "" }
-variable "compartment_id" {
-    default = ""
-}
-variable "node_image_id" { 
-    default = "" 
-}
+variable "compartment_id" { default = "" }
+variable "nodes_per_net" { default = 1}
 
 #Network
 variable "vcn_cidr_block" { default = "192.168.1.0/24"}
@@ -35,4 +31,4 @@ variable "is_tiller_enabled" {default = false }
 
 #NodePool  
 variable "np_node_shape" { default = "VM.Standard2.1"}
-variable "nodes_per_net" { default = 1}
+variable "linux_version" { default = "7.7" }
