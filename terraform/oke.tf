@@ -1,3 +1,4 @@
+#OKE cluster
 resource "oci_containerengine_cluster" "k8s_cluster" {
     #Required
     compartment_id = var.compartment_id
@@ -18,14 +19,26 @@ resource "oci_containerengine_cluster" "k8s_cluster" {
     }
 }
 
-resource "oci_containerengine_node_pool" "demo_node_pool" {
+#Get latest Oracle Linux Image available
+data "oci_core_images" "nodeImage" {
+    #Required
+    compartment_id = var.compartment_id
+
+    #Optional
+    operating_system = "Oracle Linux"
+    operating_system_version = var.linux_version
+    sort_by = "TIMECREATED"
+    sort_order = "DESC"
+}
+
+resource "oci_containerengine_node_pool" "node_pool" {
     #Required
     cluster_id = oci_containerengine_cluster.k8s_cluster.id
     compartment_id = var.compartment_id
     kubernetes_version = data.oci_containerengine_cluster_option.k8s_latest.kubernetes_versions[1]
     name = format("%s_np_1", var.cluster_name)
     node_shape = var.np_node_shape
-    node_image_id = var.node_image_id
+    node_image_id = data.oci_core_images.nodeImage.images[0].id
     
     node_config_details {
 
