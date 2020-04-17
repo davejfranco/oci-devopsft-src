@@ -1,2 +1,4 @@
 terraform/secret.tfvars
 packer/secret.json
+terraform.*
+.terraform/
