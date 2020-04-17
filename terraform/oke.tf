@@ -27,6 +27,7 @@ data "oci_core_images" "nodeImage" {
     #Optional
     operating_system = "Oracle Linux"
     operating_system_version = var.linux_version
+    shape = var.np_node_shape
     sort_by = "TIMECREATED"
     sort_order = "DESC"
 }
