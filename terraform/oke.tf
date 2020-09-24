@@ -2,7 +2,7 @@
 resource "oci_containerengine_cluster" "k8s_cluster" {
     #Required
     compartment_id = var.compartment_id
-    kubernetes_version = data.oci_containerengine_cluster_option.k8s_latest.kubernetes_versions[1]
+    kubernetes_version = reverse(data.oci_containerengine_cluster_option.k8s_latest.kubernetes_versions)[0]
     name = var.cluster_name
     vcn_id = oci_core_vcn.vcn.id
 
@@ -36,7 +36,7 @@ resource "oci_containerengine_node_pool" "node_pool" {
     #Required
     cluster_id = oci_containerengine_cluster.k8s_cluster.id
     compartment_id = var.compartment_id
-    kubernetes_version = data.oci_containerengine_cluster_option.k8s_latest.kubernetes_versions[1]
+    kubernetes_version = reverse(data.oci_containerengine_cluster_option.k8s_latest.kubernetes_versions)[0]
     name = format("%s_np_1", var.cluster_name)
     node_shape = var.np_node_shape
     node_image_id = data.oci_core_images.nodeImage.images[0].id
