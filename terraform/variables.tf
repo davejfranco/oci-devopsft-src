@@ -31,4 +31,4 @@ variable "is_tiller_enabled" {default = false }
 
 #NodePool  
 variable "np_node_shape" { default = "VM.Standard2.1"}
-variable "linux_version" { default = "7.7" }
+variable "linux_version" { default = "7.8" }
